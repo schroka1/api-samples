@@ -62,10 +62,12 @@ def get_authenticated_service(args):
 
   # Trusted testers can download this discovery document from the developers page
   # and it should be in the same directory with the code.
-  with open("youtube-v3-api-captions.json", "r") as f:
-    doc = f.read()
-    return build_from_document(doc, http=credentials.authorize(httplib2.Http()))
-
+  try:
+     with open("youtube-v3-api-captions.json", "r") as f:
+       doc = f.read()
+       return build_from_document(doc, http=credentials.authorize(httplib2.Http()))
+  except:
+      exit ("Missing: youtube-v3-api-captions.json It should be in the same directory as the code example. Download at https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
 
 # Call the API's captions.list method to list the existing caption tracks.
 def list_captions(youtube, video_id):
